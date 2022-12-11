@@ -53,12 +53,15 @@ F.	Users may choose not to use an iUMI, relying solely on eUMIs in library adapt
 ```
 $ python hop_dropper.py -i <input file> -o <output dir> -I <iUMI length> -E <eUMI length> [-q <min UMI qual> -f <fixed UMIs file> -m <min UMI count> -Q <min read qual> -s <subsample size> -d <min read depth> -c <consensus threshold> -N <max consecutive Ns>]
 ```
-<b>Arguments:</b>
-
+<b>Required arguments:</b>
+```
     -i : path to TSV input file
     -o : output directory (this is used as the experiment_name in output headers)
     -I : iUMI length
     -E : eUMI length
+```
+<b>Optional arguments:</b>
+```
     -q : minimum PHRED quality for bases in UMI (default = 30)
     -f : path to TXT file listing fixed eUMIs (one eUMI per line)
     -m : minimum occurences of UMI pair for retention (UMI pairs that do not appear at least this many times are not outputted, default = 30)
