@@ -36,7 +36,9 @@ Experiment_name is a name given to a HopDropper analysis at runtime. Library_nam
 A.	Do not trim bases from the beginning of reads! HopDropper must consider those bases as-sequenced for UMI assignment.
 
 B.	UMIs are not always unique. Sequencing adapter oligomers with fixed eUMIs are obviously limited in number. Sequencing adapter oligomers with random eUMIs have a limited number of permutations. iUMIs are limited by the number of positions in the genome where fragmentation can occur, and repetitive genome structures or simple chance may result in redundant sequence motifs at certain fragmentation locations. Taken together, this means that some input fragments may share UMIs with other input fragments on one or both of their ends by chance. This coincidental sharing of UMIs is called a UMI collision.
+
 The rate of UMI collisions depends on the diversity of eUMIs available on adapter molecules. It also depends on the diversity of iUMIs residing within the genomes of the organisms in the specimen which, in turn, depends on total genome length and the presence and frequency of repetitive structural elements. The UMI collision rate also depends on the number of input molecules; fewer input molecules require fewer UMIs, so there is a lower probability of collision. UMI collision rates are easily underestimated, even when the diversity of eUMIs and iUMIs seems extensive (the same cognitive bias behind the classic “birthday problem” from statistics and probability theory applies here).
+
 Unfortunately, UMI collisions are alike in appearance to chimeras and index hops. HopDropper does not attempt to distinguish them. If a UMI collision occurs and one of the input fragments containing that UMI is significantly more abundant, the other input fragment will be discarded. If a UMI collision occurs and none of the input fragments containing that UMI are significantly more abundant than the rest, all of these input fragments will be discarded. This means that conditions favouring UMI collisions will increase data attrition by HopDropper, potentially resulting in false negatives. Users should understand that HopDropper’s priority is to remove false positives.
 
 C.	HopDropper expects the eUMIs to be in-line with the input molecule, i.e. directly adjacent to the end of the input molecule. If the eUMI’s position within the sequencing adapter oligomer does not place it directly adjacent to the input molecule upon ligation, eUMI sequences and their corresponding base quality scores must be prepended to read entries in the FASTQ files.
@@ -54,7 +56,7 @@ $ python hop_dropper.py -i <input file> -o <output dir> -I <iUMI length> -E <eUM
 <b>Arguments:</b>
 
     -i : path to TSV input file
-    -o : output directory
+    -o : output directory (this is used as the experiment_name in output headers)
     -I : iUMI length
     -E : eUMI length
     -q : minimum PHRED quality for bases in UMI (default = 30)
